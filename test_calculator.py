@@ -5,6 +5,7 @@ Run with: pytest test_calculator.py
 
 import pytest
 import numpy as np
+import requests
 from unittest.mock import patch, Mock
 from calculator import Calculator
 
@@ -96,8 +97,8 @@ class TestCalculator:
     @patch('calculator.np.random.randint')
     def test_get_random_number_api_failure(self, mock_randint, mock_get):
         """Test fallback to numpy random when API fails."""
-        # Mock API failure
-        mock_get.side_effect = Exception("API Error")
+        # Mock API failure with requests.RequestException
+        mock_get.side_effect = requests.RequestException("API Error")
         mock_randint.return_value = 75
         
         result = self.calc.get_random_number()
