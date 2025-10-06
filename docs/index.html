@@ -74,7 +74,7 @@
         <h1>🧮 Calculator Python Package</h1>
         
         <div class="workflow-status">
-            <img src="https://github.com/USERNAME/REPO/workflows/Simple%20Build/badge.svg" alt="Build Status">
+            <img src="https://github.com/USERNAME/REPO/workflows/Python%20CI/badge.svg" alt="CI Status">
             <span class="badge">Python 3.8+</span>
             <span class="badge">MIT License</span>
             <span class="badge">GitHub Actions</span>
@@ -110,8 +110,15 @@
         
         <h3>Installation</h3>
         <div class="code-block">
-<pre>git clone https://github.com/USERNAME/REPO.git
-cd gh-actions-python-1hr
+<pre># Clone the repository
+git clone https://github.com/USERNAME/REPO.git
+cd gh-actions-python
+
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt</pre>
         </div>
 
@@ -123,8 +130,8 @@ python calculator.py
 # Run tests
 pytest test_calculator.py
 
-# Build package
-python -m build</pre>
+# Run tests with verbose output
+pytest test_calculator.py -v</pre>
         </div>
 
         <h2>🔧 GitHub Actions Workshop</h2>
@@ -132,25 +139,24 @@ python -m build</pre>
         
         <ol>
             <li><strong>Test Stage:</strong> Runs pytest to validate code functionality</li>
-            <li><strong>Build Stage:</strong> Creates Python package distributions</li>
             <li><strong>Deploy Stage:</strong> Publishes documentation to GitHub Pages</li>
         </ol>
 
         <h3>Workshop Learning Objectives</h3>
         <ul>
             <li>Understand GitHub Actions workflow syntax</li>
-            <li>Set up automated testing</li>
-            <li>Create build artifacts</li>
+            <li>Set up automated testing with pytest</li>
             <li>Deploy static content to GitHub Pages</li>
             <li>Use job dependencies and conditional execution</li>
+            <li>Work with virtual environments in CI/CD</li>
         </ul>
 
-        <h2>📊 Build Pipeline</h2>
+        <h2>📊 CI/CD Pipeline</h2>
         <div class="code-block">
-<pre>┌─────────┐    ┌─────────┐    ┌─────────┐
-│  Test   │───▶│  Build  │───▶│ Deploy  │
-│ Stage   │    │ Stage   │    │  Docs   │
-└─────────┘    └─────────┘    └─────────┘</pre>
+<pre>┌─────────┐    ┌─────────┐
+│  Test   │───▶│ Deploy  │
+│ Stage   │    │  Docs   │
+└─────────┘    └─────────┘</pre>
         </div>
 
         <h2>🛠️ Technologies Used</h2>
@@ -164,7 +170,7 @@ python -m build</pre>
         </ul>
 
         <h2>📈 Test Results</h2>
-        <p>Latest build results are automatically generated and displayed here after each workflow run.</p>
+        <p>Latest test results are automatically generated and displayed here after each workflow run.</p>
 
         <div class="highlight">
             <strong>💡 Pro Tip:</strong> Fork this repository and follow along with the workshop to get hands-on experience with GitHub Actions!
@@ -190,7 +196,7 @@ python -m build</pre>
             const parts = currentUrl.split('/');
             const username = parts[2].split('.')[0];
             const repo = parts[3];
-            badge.src = `https://github.com/${username}/${repo}/workflows/Simple%20Build/badge.svg`;
+            badge.src = `https://github.com/${username}/${repo}/workflows/Python%20CI/badge.svg`;
         }
     </script>
 </body>
