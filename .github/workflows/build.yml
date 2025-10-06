@@ -1,9 +1,8 @@
 name: Python CI
 
-# This workflow demonstrates a complete CI/CD pipeline with 3 stages:
+# This workflow demonstrates a complete CI/CD pipeline with 2 stages:
 # 1. TEST: Run automated tests to verify code quality
-# 2. BUILD: Create a Python package from the source code
-# 3. DEPLOY: Publish documentation to GitHub Pages
+# 2. DEPLOY: Publish documentation to GitHub Pages
 
 # WHEN DOES THIS RUN?
 # - On every push to the main branch
@@ -44,58 +43,18 @@ jobs:
     # Step 3: Install our project's dependencies
     - name: Install dependencies
       run: |  # Run shell commands
-        python -m pip install --upgrade pip  # Update pip first
+        python -m pip install --upgrade pip setuptools wheel  # Update pip, setuptools, and wheel first
         pip install -r requirements.txt      # Install our dependencies
     
     # Step 4: Run the tests
     - name: Run tests
       run: pytest test_calculator.py  # Execute our test suite
 
-  # ===== STAGE 2: BUILD =====
-  # This job creates a distributable Python package
-  # IMPORTANT: 'needs: test' means this only runs if tests pass!
-  build:
-    needs: test  # Wait for test job to complete successfully
-    runs-on: ubuntu-latest
-    name: Build Package
-    
-    steps:
-    # Get the code (same as test job)
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    # Install Python (same as test job)
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
-    
-    # Install tools needed to build Python packages
-    - name: Install build tools
-      run: |
-        python -m pip install --upgrade pip
-        pip install build  # The 'build' package creates Python distributions
-    
-    # Create the package files (wheel and source distribution)
-    - name: Build package
-      run: python -m build  # Creates files in dist/ folder
-    
-    # Show what files were created (helpful for learning)
-    - name: List built files
-      run: ls -la dist/
-    
-    # Save the built package for later use or download
-    - name: Save build artifacts
-      uses: actions/upload-artifact@v3  # Store files from this workflow run
-      with:
-        name: python-package  # Name for the artifact
-        path: dist/           # Which files to save
-
-  # ===== STAGE 3: DEPLOY =====
+  # ===== STAGE 2: DEPLOY =====
   # This job publishes our documentation website to GitHub Pages
-  # IMPORTANT: Only runs if BOTH test and build jobs succeed!
+  # IMPORTANT: Only runs if test job succeeds!
   deploy-docs:
-    needs: [test, build]  # Wait for both previous jobs to complete
+    needs: test  # Wait for test job to complete
     runs-on: ubuntu-latest
     name: Deploy to GitHub Pages
     # CONDITIONAL: Only run on pushes to main branch (not on pull requests)
@@ -121,7 +80,7 @@ jobs:
     # Install dependencies (needed for test results)
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
         pip install -r requirements.txt
     
     # Run our custom script to generate documentation with test results
