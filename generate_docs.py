@@ -68,7 +68,7 @@ def update_html_with_results(test_data):
         
         # Insert after the "Test Results" heading
         content = content.replace(
-            '<h2>📈 Test Results</h2>\n        <p>Latest build results and coverage reports are automatically generated and can be viewed in the GitHub Actions tab.</p>',
+            '<h2>📈 Test Results</h2>\n        <p>Latest test results are automatically generated and displayed here after each workflow run.</p>',
             f'<h2>📈 Test Results</h2>{test_summary}'
         )
         

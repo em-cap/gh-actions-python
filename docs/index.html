@@ -29,15 +29,6 @@
             color: #007acc;
             margin-top: 30px;
         }
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            background: #28a745;
-            color: white;
-            border-radius: 4px;
-            font-size: 12px;
-            margin: 2px;
-        }
         .code-block {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
@@ -64,21 +55,11 @@
             border-radius: 8px;
             border-left: 4px solid #007acc;
         }
-        .workflow-status {
-            margin: 20px 0;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🧮 Calculator Python Package</h1>
-        
-        <div class="workflow-status">
-            <img src="https://github.com/USERNAME/REPO/workflows/Python%20CI/badge.svg" alt="CI Status">
-            <span class="badge">Python 3.8+</span>
-            <span class="badge">MIT License</span>
-            <span class="badge">GitHub Actions</span>
-        </div>
 
         <p>A demonstration Python package for learning GitHub Actions CI/CD workflows. This project showcases automated testing, building, and deployment processes.</p>
 
@@ -111,7 +92,7 @@
         <h3>Installation</h3>
         <div class="code-block">
 <pre># Clone the repository
-git clone https://github.com/USERNAME/REPO.git
+git clone https://github.com/YOUR-USERNAME/gh-actions-python.git
 cd gh-actions-python
 
 # Create and activate virtual environment
@@ -170,7 +151,15 @@ pytest test_calculator.py -v</pre>
         </ul>
 
         <h2>📈 Test Results</h2>
-        <p>Latest test results are automatically generated and displayed here after each workflow run.</p>
+        <div style="background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; padding: 15px; margin: 15px 0;">
+            <h4 style="margin: 0 0 10px 0; color: #155724;">Latest Test Results</h4>
+            <p style="margin: 5px 0;"><strong>Total Tests:</strong> 11</p>
+            <p style="margin: 5px 0;"><strong>Passed:</strong> <span style="color: #28a745;">11</span></p>
+            <p style="margin: 5px 0;"><strong>Failed:</strong> <span style="color: #dc3545;">0</span></p>
+            <p style="margin: 5px 0;"><strong>Status:</strong> ✅ All tests passing</p>
+            <p style="margin: 5px 0; font-size: 0.9em; color: #666;"><strong>Last Run:</strong> 2025-10-06T22:48:23</p>
+        </div>
+        
 
         <div class="highlight">
             <strong>💡 Pro Tip:</strong> Fork this repository and follow along with the workshop to get hands-on experience with GitHub Actions!
@@ -187,17 +176,6 @@ pytest test_calculator.py -v</pre>
     <script>
         // Add build timestamp
         document.getElementById('buildDate').textContent = new Date().toLocaleDateString();
-        
-        // Update workflow badge URL when page loads
-        const currentUrl = window.location.href;
-        const badge = document.querySelector('img[alt="Build Status"]');
-        if (badge && currentUrl.includes('github.io')) {
-            // Extract username and repo from GitHub Pages URL
-            const parts = currentUrl.split('/');
-            const username = parts[2].split('.')[0];
-            const repo = parts[3];
-            badge.src = `https://github.com/${username}/${repo}/workflows/Python%20CI/badge.svg`;
-        }
     </script>
 </body>
 </html>
