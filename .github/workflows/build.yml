@@ -93,11 +93,11 @@ jobs:
     
     # Upload our docs folder to be deployed
     - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v2
+      uses: actions/upload-pages-artifact@v4
       with:
         path: docs/  # Deploy everything in the docs/ folder
     
     # Actually deploy to GitHub Pages (makes the site live!)
     - name: Deploy to GitHub Pages
       id: deployment  # ID needed to reference outputs in environment.url above
-      uses: actions/deploy-pages@v2
+      uses: actions/deploy-pages@v4
