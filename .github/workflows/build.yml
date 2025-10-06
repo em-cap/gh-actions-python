@@ -1,0 +1,144 @@
+name: Python CI
+
+# This workflow demonstrates a complete CI/CD pipeline with 3 stages:
+# 1. TEST: Run automated tests to verify code quality
+# 2. BUILD: Create a Python package from the source code
+# 3. DEPLOY: Publish documentation to GitHub Pages
+
+# WHEN DOES THIS RUN?
+# - On every push to the main branch
+# - On every pull request targeting main branch
+on:
+  push:
+    branches: [ main ]  # Trigger on pushes to main
+  pull_request:
+    branches: [ main ]  # Trigger on PRs to main
+
+# PERMISSIONS: What can this workflow do?
+# These permissions are needed for GitHub Pages deployment
+permissions:
+  contents: read      # Read the repository files
+  pages: write        # Deploy to GitHub Pages
+  id-token: write     # Use GitHub's identity token for secure deployment
+
+# JOBS: The actual work to be done
+# Jobs run in parallel by default, but we use 'needs:' to make them sequential
+jobs:
+  # ===== STAGE 1: TEST =====
+  # This job runs our Python tests to make sure the code works
+  test:
+    runs-on: ubuntu-latest  # Use Ubuntu Linux (free for public repos)
+    name: Test
+    
+    steps:  # A job contains multiple steps
+    # Step 1: Get the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v4  # Pre-built action to download our code
+    
+    # Step 2: Install Python on the virtual machine
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Pre-built action to install Python
+      with:
+        python-version: '3.12'  # Specify which Python version to use
+    
+    # Step 3: Install our project's dependencies
+    - name: Install dependencies
+      run: |  # Run shell commands
+        python -m pip install --upgrade pip  # Update pip first
+        pip install -r requirements.txt      # Install our dependencies
+    
+    # Step 4: Run the tests
+    - name: Run tests
+      run: pytest test_calculator.py  # Execute our test suite
+
+  # ===== STAGE 2: BUILD =====
+  # This job creates a distributable Python package
+  # IMPORTANT: 'needs: test' means this only runs if tests pass!
+  build:
+    needs: test  # Wait for test job to complete successfully
+    runs-on: ubuntu-latest
+    name: Build Package
+    
+    steps:
+    # Get the code (same as test job)
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Install Python (same as test job)
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    # Install tools needed to build Python packages
+    - name: Install build tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install build  # The 'build' package creates Python distributions
+    
+    # Create the package files (wheel and source distribution)
+    - name: Build package
+      run: python -m build  # Creates files in dist/ folder
+    
+    # Show what files were created (helpful for learning)
+    - name: List built files
+      run: ls -la dist/
+    
+    # Save the built package for later use or download
+    - name: Save build artifacts
+      uses: actions/upload-artifact@v3  # Store files from this workflow run
+      with:
+        name: python-package  # Name for the artifact
+        path: dist/           # Which files to save
+
+  # ===== STAGE 3: DEPLOY =====
+  # This job publishes our documentation website to GitHub Pages
+  # IMPORTANT: Only runs if BOTH test and build jobs succeed!
+  deploy-docs:
+    needs: [test, build]  # Wait for both previous jobs to complete
+    runs-on: ubuntu-latest
+    name: Deploy to GitHub Pages
+    # CONDITIONAL: Only run on pushes to main branch (not on pull requests)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    # ENVIRONMENT: Tells GitHub this deploys to the 'github-pages' environment
+    # The URL will be automatically set to where the site is deployed
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}  # References the deployment step below
+    
+    steps:
+    # Get the code (needed for docs generation)
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Install Python (needed to run our doc generator)
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    # Install dependencies (needed for test results)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    # Run our custom script to generate documentation with test results
+    - name: Generate documentation with test results
+      run: python generate_docs.py  # This updates our HTML with fresh test data
+    
+    # Configure GitHub Pages deployment
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+    
+    # Upload our docs folder to be deployed
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: docs/  # Deploy everything in the docs/ folder
+    
+    # Actually deploy to GitHub Pages (makes the site live!)
+    - name: Deploy to GitHub Pages
+      id: deployment  # ID needed to reference outputs in environment.url above
+      uses: actions/deploy-pages@v2

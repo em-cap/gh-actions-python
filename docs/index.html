@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Python Package</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007acc;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #007acc;
+            margin-top: 30px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #28a745;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #007acc;
+        }
+        .workflow-status {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 Calculator Python Package</h1>
+        
+        <div class="workflow-status">
+            <img src="https://github.com/USERNAME/REPO/workflows/Simple%20Build/badge.svg" alt="Build Status">
+            <span class="badge">Python 3.8+</span>
+            <span class="badge">MIT License</span>
+            <span class="badge">GitHub Actions</span>
+        </div>
+
+        <p>A demonstration Python package for learning GitHub Actions CI/CD workflows. This project showcases automated testing, building, and deployment processes.</p>
+
+        <div class="highlight">
+            <strong>🎯 Workshop Goal:</strong> Learn to set up automated build pipelines using GitHub Actions in under 1 hour!
+        </div>
+
+        <h2>✨ Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Basic Operations</h3>
+                <p>Add, subtract, multiply, divide with error handling</p>
+            </div>
+            <div class="feature-card">
+                <h3>Advanced Math</h3>
+                <p>Power and square root operations using NumPy</p>
+            </div>
+            <div class="feature-card">
+                <h3>API Integration</h3>
+                <p>Fetch random numbers from external API with fallback</p>
+            </div>
+            <div class="feature-card">
+                <h3>Full Test Coverage</h3>
+                <p>Comprehensive pytest suite with mocking</p>
+            </div>
+        </div>
+
+        <h2>🚀 Quick Start</h2>
+        
+        <h3>Installation</h3>
+        <div class="code-block">
+<pre>git clone https://github.com/USERNAME/REPO.git
+cd gh-actions-python-1hr
+pip install -r requirements.txt</pre>
+        </div>
+
+        <h3>Usage</h3>
+        <div class="code-block">
+<pre># Run the calculator
+python calculator.py
+
+# Run tests
+pytest test_calculator.py
+
+# Build package
+python -m build</pre>
+        </div>
+
+        <h2>🔧 GitHub Actions Workshop</h2>
+        <p>This repository demonstrates a simple CI/CD pipeline with the following stages:</p>
+        
+        <ol>
+            <li><strong>Test Stage:</strong> Runs pytest to validate code functionality</li>
+            <li><strong>Build Stage:</strong> Creates Python package distributions</li>
+            <li><strong>Deploy Stage:</strong> Publishes documentation to GitHub Pages</li>
+        </ol>
+
+        <h3>Workshop Learning Objectives</h3>
+        <ul>
+            <li>Understand GitHub Actions workflow syntax</li>
+            <li>Set up automated testing</li>
+            <li>Create build artifacts</li>
+            <li>Deploy static content to GitHub Pages</li>
+            <li>Use job dependencies and conditional execution</li>
+        </ul>
+
+        <h2>📊 Build Pipeline</h2>
+        <div class="code-block">
+<pre>┌─────────┐    ┌─────────┐    ┌─────────┐
+│  Test   │───▶│  Build  │───▶│ Deploy  │
+│ Stage   │    │ Stage   │    │  Docs   │
+└─────────┘    └─────────┘    └─────────┘</pre>
+        </div>
+
+        <h2>🛠️ Technologies Used</h2>
+        <ul>
+            <li><strong>Python:</strong> Core programming language</li>
+            <li><strong>Requests:</strong> HTTP library for API calls</li>
+            <li><strong>NumPy:</strong> Numerical computing</li>
+            <li><strong>Pytest:</strong> Testing framework</li>
+            <li><strong>GitHub Actions:</strong> CI/CD automation</li>
+            <li><strong>GitHub Pages:</strong> Static site hosting</li>
+        </ul>
+
+        <h2>📈 Test Results</h2>
+        <p>Latest build results are automatically generated and displayed here after each workflow run.</p>
+
+        <div class="highlight">
+            <strong>💡 Pro Tip:</strong> Fork this repository and follow along with the workshop to get hands-on experience with GitHub Actions!
+        </div>
+
+        <h2>📝 License</h2>
+        <p>This project is licensed under the MIT License - see the repository for details.</p>
+
+        <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #666;">
+            <p>Built with ❤️ for GitHub Actions Workshop | Last updated: <span id="buildDate">Build Date</span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Add build timestamp
+        document.getElementById('buildDate').textContent = new Date().toLocaleDateString();
+        
+        // Update workflow badge URL when page loads
+        const currentUrl = window.location.href;
+        const badge = document.querySelector('img[alt="Build Status"]');
+        if (badge && currentUrl.includes('github.io')) {
+            // Extract username and repo from GitHub Pages URL
+            const parts = currentUrl.split('/');
+            const username = parts[2].split('.')[0];
+            const repo = parts[3];
+            badge.src = `https://github.com/${username}/${repo}/workflows/Simple%20Build/badge.svg`;
+        }
+    </script>
+</body>
+</html>
